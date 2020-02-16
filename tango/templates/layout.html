@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %} - Committee Room</title>
+
+    <link rel="stylesheet" href="/static/spectre/spectre.min.css">
+    <link rel="stylesheet" href="/static/spectre/spectre-exp.min.css">
+    <link rel="stylesheet" href="/static/spectre/spectre-icons.min.css">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+<div id="app">
+    <header id="header" class="navbar bg-dark text-light">
+        <section class="navbar-section">
+            <a href="/" class="navbar-brand mr-2 text-secondary"><strong>Committee</strong>Room</a>
+        </section>
+        <nav class="navbar-section full-width hide-md">
+            {% if current_user.is_authenticated %}
+                <a href="/" class="btn btn-link text-gray">Events</a>
+                <a href="/" class="btn btn-link text-gray">People</a>
+                <a href="/" class="btn btn-link text-gray">Manage</a>
+            {% endif %}
+        </nav>
+        <section class="navbar-section hide-md">
+            {% if not current_user.is_authenticated %}
+                <a href="{{ url_for('auth.login') }}" class="btn btn-link text-primary">Sign in</a>
+            {% endif %}
+        </section>
+        <section class="navbar-section full-width show-md" style="text-align: right;">
+            <button class="btn btn-link text-primary" onclick="toggleMainMenu()">
+                MENU
+                <i id="mainMenuIcon" class="icon icon-apps"></i>
+            </button>
+        </section>
+    </header>
+
+    <nav id="mainMenu" class="show-md">
+        {% if current_user.is_authenticated %}
+            <a href="/" class="btn btn-link text-gray">Events</a>
+            <a href="/" class="btn btn-link text-gray">People</a>
+            <a href="/" class="btn btn-link text-gray">Manage</a>
+        {% endif %}
+
+        <section>
+            <a href="/login" class="btn btn-link text-primary">Sign in</a>
+        </section>
+    </nav>
+
+    <aside id="sidebar">
+        <header class="sidebar-title">
+            <p>{% block sectionHeader %}{% endblock %}</p>
+            <button class="hide-mobile" onclick="togglePageMenu()">
+                <i id="pageMenuIcon" class="icon icon-menu"></i>
+            </button>
+        </header>
+
+        <nav id="pageMenu">
+            <a href="/">See all teams in my area</a>
+            <a href="/">Add a new team member to this team</a>
+            <a href="/">Do something else</a>
+        </nav>
+    </aside>
+
+    <main id="main">
+        <header>
+            {% block header %}{% endblock %}
+        </header>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <section>
+                    <div class="toast">
+                    {% for category, message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                    </div>
+                </section>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+</div>
+
+<script src="/static/script.js"></script>
+
+</body>
+</html>

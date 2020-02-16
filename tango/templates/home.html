@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block title %}Test Page{% endblock %}
+{% block sectionHeader %}Welcome{% endblock %}
+
+{% block header %}
+<h1>This is the top of the page</h1>
+{% endblock %}
+
+{% block content %}
+<section>
+<h2>Welcome to existence</h2>
+{% if current_user.is_authenticated %}
+    <p>Hi {{ current_user.name }}!</p>
+{% else %}
+    <p>
+        You're not logged in!
+    </p>
+{% endif %}
+</section>
+{% endblock %}
