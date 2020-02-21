@@ -4,8 +4,10 @@ Person Model
 Defines a model for volunteers and contacts. These will be linked to any matching
 user accounts, but a user account is not required.
 """
+import datetime
 
 from tango import db
+from sqlalchemy.sql import func
 
 
 boundaries = db.Table(
@@ -13,6 +15,13 @@ boundaries = db.Table(
     db.Column('person_id', db.Integer, db.ForeignKey('people.id'), primary_key=True),
     db.Column('boundary_id', db.String(9), db.ForeignKey('boundaries.gss_code'), primary_key=True)
 )
+
+
+class Consent(db.Model):
+    person_id = db.Column(db.Integer, db.ForeignKey("people.id"), primary_key=True)
+    key = db.Column(db.String(10), primary_key=True)
+    obtained_at = db.Column(db.DateTime, nullable=True, server_default=func.now())
+    consent_text = db.Column(db.Text, nullable=True)
 
 
 class Person(db.Model):
@@ -28,8 +37,17 @@ class Person(db.Model):
 
     user = db.relationship("User", backref="person", uselist=False)
 
+    consents = db.relationship("Consent", backref="person", lazy=True)
+
     boundaries = db.relationship('Boundary', secondary=boundaries, lazy='subquery',
                             backref=db.backref('people', lazy=True))
+
+    def __init__(self, fname, lname, email, post_code=None, mobile_tel=None):
+        self.first_name = fname.capitalize()
+        self.last_name = lname.capitalize()
+        self.email = email
+        self.post_code = post_code
+        self.mobile_tel = mobile_tel
 
     def __repr__(self):
         return "<Person [%s]>" % self.legal_name
@@ -44,3 +62,8 @@ class Person(db.Model):
     @property
     def legal_name(self):
         return "%s, %s" % (self.last_name.capitalize(), self.first_name)
+
+    def check_consent(self, consent_key):
+        consent = Consent.query.with_parent(self).filter_by(key=consent_key).first()
+
+        return False if consent is None else True

@@ -1,0 +1,79 @@
+.page {
+    display: grid;
+    grid-template-columns: auto 1024px auto;
+    grid-template-rows: min-content auto min-content;
+    padding: 0 1rem;
+    min-height: 100vh;
+}
+
+.page > * {
+    max-width: calc(100vw - 2rem);
+    grid-column: 2 / 3;
+}
+
+.is-brand {
+    color: #e4003b;
+    text-decoration: none;
+}
+
+.navbar {
+    padding: 8px 0;
+    min-height: 56px;
+}
+
+.is-navbar.is-border-bottom {
+    margin-bottom: 1.33rem;
+}
+
+.main {
+    padding: 8px 0;
+}
+
+.main-sidebar {
+    flex: 0 0 235px;
+    margin-right: 1rem;
+}
+
+.main-content {
+    flex: 1 1 auto;
+    margin: 0 auto;
+    max-width: 785px;
+}
+
+.main-sidebar > nav {
+    margin-bottom: 1.23rem;
+}
+
+.footer {
+    margin-top: 3rem;
+    padding: 1rem 0 3rem 0;
+}
+
+main section {
+    margin: 16px 0;
+}
+
+.is-ruled .is-row.form-item:not(:first-child) {
+    margin: 16px 0;
+    padding: 16px 0;
+    border-top: 1px solid rgba(17,17,19,.07);
+}
+
+.is-ruled .is-row.form-item > .is-col {
+    margin-left: 0;
+}
+
+input.button {
+    box-sizing: border-box;
+    width: min-content;
+}
+
+h1, h2 {
+    margin-bottom: .33em;
+    padding-bottom: .33em;
+    border-bottom: 1px solid rgba(23, 29, 33, 0.07);
+}
+
+.button:not(.is-secondary):hover {
+    border: none;
+}

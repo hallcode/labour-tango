@@ -19,6 +19,7 @@ settings = db.Table(
     db.Column('value', db.String(15))
 )
 
+
 class User(db.Model):
     __tablename__ = 'users'
 
@@ -27,10 +28,16 @@ class User(db.Model):
     password_hash = db.Column(db.String(128))
     is_verified = db.Column(db.Boolean, default=False)
     is_blocked = db.Column(db.Boolean, default=False)
-    settings = db.relationship(settings)
+
 
     def __repr__(self):
         return "<User [%r]>" % self.email
+
+
+    def __init__(self, email, password, is_verified=False):
+        self.email = email
+        self.set_password(password)
+        self.is_verified = is_verified
 
 
     def set_password(self, password):

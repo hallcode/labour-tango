@@ -55,6 +55,7 @@ def _init_plugins(app):
     login_manager.init_app(app)
 
     login_manager.login_view = "auth.login"
+    login_manager.login_message_category = "error"
 
 
 def _register_services(app):

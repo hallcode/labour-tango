@@ -1,0 +1,175 @@
+{% extends "layouts/main.html" %}
+{% block title %}Data Protection{% endblock %}
+
+{% block sidebar %}
+    <section>
+        <h5>About</h5>
+        <nav>
+            <ul>
+                <li><a href="#">About us</a></li>
+                <li><a href="#">Page...</a></li>
+            </ul>
+        </nav>
+    </section>
+    <section>
+        <h5>Legal</h5>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home.page', title='data') }}">Data Protection</a></li>
+                <li><a href="#">Data removal request form</a></li>
+            </ul>
+        </nav>
+    </section>
+{% endblock %}
+
+
+{% block content %}
+    <section>
+        <h1>Data protection statement</h1>
+        <p>
+            The website is provided for the general purpose of assisting the Labour Party and its members in organising
+            events and strategies for securing the election of candidates at elections and promoting its political and
+            philosophical values.
+        </p>
+        <p>
+            The Data Controller is the individual in having overall responsibility for the website at any time or, where
+            that is more than one individual, an unincorporated association existing for the sole purpose of maintaining
+            the website.
+        </p>
+        <p>
+            Information here shall not be transferred to any third party except in the specific circumstances described
+            below, or where mandated by an order of a court in the United Kingdom of Great Britain or Northern Ireland,
+            or a statutory requirement.
+        </p>
+        <h2>Storage</h2>
+        <p>
+            Data entered into this website will be stored in an electronic database. This will include answers entered
+            into forms on the website, as well as further information calculated from those answers.
+        </p>
+        <p>
+            Information may be provided by members about volunteers and this will be stored in the same way. It may
+            include (but is not limited to) name, contact information, address (full or partial) details of events
+            attended and activities undertaken. This information may be collected formally or informally by any means.
+        </p>
+        <p>
+            Members may also collect further information, via the website or on paper (which will then be entered onto
+            the website by members at a later date), about skills, interests, demographics or anything else but this
+            will only be collected where the individual the information is about has freely volunteered the information
+            and is made aware that it will be used on this website.
+        </p>
+        <h2>
+            Usage
+        </h2>
+        <p>
+            EMERGENCIES. In the event of an emergency in which there is a danger to life, property, or is otherwise
+            likely to involve the attendance of emergency services, members or members of the Party may use any of the
+            information on the website to facilitate dealing with that emergency, including contacting relatives. This
+            is in the vital interests of anyone who’s life or property is at risk. This use of website data is unlikely
+            to cause harm and it is not an unreasonable or unexpected use of the data.
+        </p>
+        <p>
+            PLANNING AND CONVENING LABOUR PARTY EVENTS. Data on this website will be used for the purposes of planning,
+            organising, and carrying out events or other activities pursuant to the political aims of the Labour Party.
+            It is in the legitimate interest of the website, its members, and members of the Party, to promote the
+            political values of the Party and secure the election of Party candidates to public office. As the primary
+            purpose of the website and the Party, this use of data should be expected and has a low risk of causing harm
+            to individuals about whom information is recorded. Even in situations where volunteers are unaware of the
+            existence of the website or any specific Party computer system, it should not be unreasonable for them to
+            expect that their contact information will be used (if provided) to plan, convene, and notify them of
+            further such events. Members of the Party will certainly know about and be used to their data being used in
+            such a way.
+        </p>
+        <p>
+            TRACKING EVENT ATTENDANCE AND STATISTICS. Information will be entered into the website by members to record
+            the attendance of members and volunteers at events, the duration of events, and what activities were carried
+            out at the event. This information can be used in calculations to derive new data about what activities
+            individuals have undertaken and the amount of time spent. It may also be used in statistics about how
+            successful member’s events and strategies are. This information will be passed to members of the Party and
+            may be used by them in the course of their aims and objectives. This is further to the website’s legitimate
+            interest stated above.
+        </p>
+        <p>
+            DECISIONS REGARDING SUITABILITY TO BE A CANDIDATE FOR THE PARTY. Information held on the website about an
+            individual (“A”) may be passed to members of the Party for the purposes of deciding A’s suitability to be
+            nominated by the Labour Party as a candidate at an election. In particular, this information will include
+            (a) the number of events the member has attended; (b) the duration of time they have spent at events; and
+            (b) the types of activities they have taken part in. Adverse inferences must not be made from any lack of
+            data. It is in the public interest–and the interests of the Party–for the Party, and its members and
+            supporters, to ensure candidates put up for election on its behalf are competent, fully understand and are
+            prepared to undertake the role, and hold values congruent with those of the Party. Although this use of the
+            data may result in an adverse decision being made against them, there is no right for any person to be a
+            candidate (even if A is the incumbent seeking re-election), and there is unlikely to be material
+            reputational damage or significant psychological harm caused.
+        </p>
+        <p>
+            ASSISTING ELECTION AGENTS AND CANDIDATES. Contact information from the website may be passed by members to
+            any person validly appointed as Election Agent for a candidate nominated by the Labour Party (or where a
+            candidate is acting as their own Election Agent, the candidate). This is for the purpose of contacting
+            supporters of the Party in order to recruit petitioners to support a candidate’s nomination. This is in
+            furtherance of the legitimate interest of members and volunteers of seeking to secure the election of Party
+            candidates to public office.
+        </p>
+        <h2>
+            Contact by email or telephone
+        </h2>
+        <p>
+            The website or any member may contact any member or volunteer using any email address or phone number held.
+            Contact will only be made regarding the usage and purposes detailed above and may be automated or sent by a
+            member using their own personal communication methods with information taken from the website.
+        </p>
+        <p>
+            AUTOMATED NOTIFICATION OF EVENTS. Members and volunteers will only receive automatically generated messages
+            about events or campaigns if they have specifically requested that they receive such messages.
+        </p>
+        <p>
+            OFFLINE COMMUNICATION BY MEMBERS. Members may use the information provided about other members and
+            volunteers and contact them using it. This can only be in the pursuit of the purposes described in the usage
+            section and must not be unexpected or unreasonable.
+        </p>
+        <p>
+            TRANSACTIONAL MESSAGES. The website or those in charge of it may send messages to members or volunteers for
+            the purposes of (a) ascertaining the accuracy of any information held on the website relating to the
+            individual; (b) ascertaining the validity or correctness of their consent or any consent(s) given to another
+            member or third party which relates to the website; (c) administering the registration process or the
+            member’s account; and (d) informing the member that information has been provided about them by a member,
+            directing them to this notice, and informing them of how to have this information corrected or removed. This
+            is all in the interest of the website ensuring it is lawfully holding data according to the data protection
+            principles.
+        </p>
+        <h2>Definitions</h2>
+        <dl>
+            <dt>"member"</dt>
+            <dd>any individual who has completed at least part of the registration process for the website, including
+                the section asking their communication preferences.
+            </dd>
+
+            <dt>"volunteer"</dt>
+            <dd>anyone who’s data has been added to the website, either by them having started–but not completing–the
+                registration process or, by someone else adding the information, and who is not listed as an emergency
+                contact.
+            </dd>
+
+            <dt>"website"</dt>
+            <dd>the website normally accessible at “www.committeeroom.co.uk”, its associated software, databases, and
+                processes, and the individual or other persons in charge of it.
+            </dd>
+
+            <dt>the "Party"</dt>
+            <dd>
+                the Labour Party, and any accounting unit or other unit of the Party.
+            </dd>
+
+            <dt>"members of the Party"</dt>
+            <dt>"Party members"</dt>
+            <dd>
+                any individual who is a valid member of the Labour Party according to the Party’s rules and procedures.
+                For the purposes of this statement, it will also include anyone else who is not a valid member of the
+                Labour Party but who is undertaking activities which are pursuant to the aims of the Party and who has
+                not expressed support for another political party, or an organisation with objects or stated political
+                or philosophical values which are incompatible with those of the Labour Party
+            </dd>
+        </dl>
+
+    </section>
+
+{% endblock %}

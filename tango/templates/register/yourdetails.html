@@ -1,0 +1,62 @@
+{% extends "layouts/main.html" %}
+{% import "macros/field.html" as field %}
+{% block title %}Volunteer{% endblock %}
+
+
+{% block content %}
+    <h1>1. Your Details</h1>
+    <p>
+    First, tell us who you are and how we can contact you.
+    </p>
+    <form action="" method="post" novalidate class="is-ruled">
+        {{ form.hidden_tag() }}
+        <section class="is-row form-item">
+            <div class="is-col is-30">
+                <label for="first_name">
+                    Name
+                </label>
+            </div>
+            <div class="is-col is-70">
+                <div class="form-item">
+                    {{ form.first_name(class="is-error" if form.first_name.errors, placeholder="First name") }}
+                    {% for error in form.first_name.errors %}
+                        <div class="is-error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div>
+                    {{ form.last_name(class="is-error" if form.last_name.errors, placeholder="Last name") }}
+                    {% for error in form.last_name.errors %}
+                        <div class="is-error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        {{ field.hfield(form.email) }}
+
+        {{ field.hfield(form.tel_no, "Enter your mobile phone number") }}
+
+        <section class="is-row form-item">
+            <div class="is-col is-30">
+                {{ form.post_code.label }}
+                <p class="is-muted is-small">
+                    Enter your home post code.
+                </p>
+            </div>
+            <div class="is-col is-70">
+                {{ form.post_code(class="is-error is-30" if form.post_code.errors else "is-30") }}
+                {% for error in form.post_code.errors %}
+                    <div class="is-error">{{ error }}</div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section style="text-align: right">
+            {{ form.submit(class="button") }}
+        </section>
+
+
+    </form>
+
+
+{% endblock %}

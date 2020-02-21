@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %} - Committee Room</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Kube CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='kube/themes/labour.theme.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
+
+</head>
+<body>
+<div class="page is-container-column">
+    <header class="header">
+
+        <div class="navbar is-navbar-container is-scrollable">
+            <a href="/" class="is-brand is-big">
+                Committee<b>Room</b>
+            </a>
+            <div class="is-navbar">
+                <nav class="is-push-right">
+                    <ul>
+                        {% if not current_user.is_authenticated %}
+                            <li>
+                                <a class="button is-secondary is-small" href="{{ url_for('auth.login') }}">Sign in</a>
+                            </li>
+                            <li>
+                                <a class="button is-tertiary is-small" href="{{ url_for('auth.register') }}">Register</a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a href="{{ url_for('auth.login') }}">Account</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        {% if current_user.is_authenticated %}
+            <div class="navbar is-navbar-container is-scrollable is-border-top is-border-bottom">
+                <div class="is-navbar">
+                    <nav class="is-centered">
+                        <ul>
+                            <li><a class="button is-tertiary" href="#">Events</a></li>
+                            <li><a class="button is-tertiary" href="#">Teams</a></li>
+                            <li><a class="button is-tertiary" href="#">Manage</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        {% endif %}
+
+    </header>
+    <main class="main is-container">
+        {% if self.sidebar() %}
+            <aside class="main-sidebar is-hidden-mobile is-hidden-print">
+                {% block sidebar %}{% endblock %}
+            </aside>
+        {% endif %}
+        <article class="main-content">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <section>
+                        {% for category, message in messages %}
+                            <div class="alert is-{{ category }}">
+                                <p>{{ message|safe }}</p>
+                            </div>
+                        {% endfor %}
+                    </section>
+                {% endif %}
+            {% endwith %}
+
+            {% block content %}{% endblock %}
+
+
+        </article>
+    </main>
+
+
+    <footer class="footer is-border-top">
+        <section class="navbar is-navbar-container">
+            <div class="is-brand">
+                Committee<b class="is-logo">Room</b>
+            </div>
+            <div class="is-navbar">
+                <nav class="is-push-right">
+                    <ul>
+                        <li>
+                            <a href="#" class="is-muted">About</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('home.page', title="data") }}" class="is-muted">Data Protection</a>
+                        </li>
+                        <li>
+                            <a href="#" class="is-muted">Contact</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </section>
+        <section class="is-row">
+            <div class="is-col is-60 is-muted is-small">
+                A home for activists.
+            </div>
+            <p class="is-col is-40 is-muted is-smaller">
+                Promoted by A W Hall on behalf of North West Cambridgeshire Constituency Labour Party,
+                both at 11 Kennedy Street, Hampton Vale, Peterborough, PE7 8JY.
+            </p>
+        </section>
+    </footer>
+</div>
+
+<!-- Kube JS (optional if you are using Kube CSS only) -->
+<script src="{{ url_for('static', filename='kube/js/kube.min.js') }}"></script>
+<script>
+    $K.init();
+</script>
+</body>
+</html>
