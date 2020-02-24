@@ -1,3 +1,4 @@
+
 .page {
     display: grid;
     grid-template-columns: auto 1024px auto;
@@ -76,4 +77,32 @@ h1, h2 {
 
 .button:not(.is-secondary):hover {
     border: none;
+}
+
+.is-box {
+    border-radius: 2px;
+    border: 1px solid rgba(23, 29, 33, 0.05);
+    background-color: rgba(23, 29, 33, 0.025);
+    padding: 1rem;
+    color: rgba(23, 29, 33, 0.97);
+}
+
+.is-box > :first-child {
+    margin-top: 0;
+}
+
+.is-box > :last-child {
+    margin-bottom: 0;
+}
+
+main article ul, main article ol {
+    margin-left: 3rem;
+}
+
+.button:focus {
+    box-shadow: 0 0 0 3px rgba(21, 141, 247, .23) !important;
+}
+
+.navbar.is-scrollable li:first-child {
+    margin-left: 2px;
 }

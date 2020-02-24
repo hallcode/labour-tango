@@ -12,15 +12,24 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
 
+    {% if config['DEBUG'] == True %}
+        <script src="https://vuejs.org/js/vue.js"></script>
+    {% else %}
+        <script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"></script>
+    {% endif %}
+
 </head>
 <body>
-<div class="page is-container-column">
+<div id="app" class="page is-container-column">
     <header class="header">
 
         <div class="navbar is-navbar-container is-scrollable">
             <a href="/" class="is-brand is-big">
                 Committee<b>Room</b>
             </a>
+            {% if config['DEBUG'] == True %}
+                <span style="margin: 0 .33em" class="is-muted">DEV</span>
+            {% endif %}
             <div class="is-navbar">
                 <nav class="is-push-right">
                     <ul>
@@ -29,11 +38,15 @@
                                 <a class="button is-secondary is-small" href="{{ url_for('auth.login') }}">Sign in</a>
                             </li>
                             <li>
-                                <a class="button is-tertiary is-small" href="{{ url_for('auth.register') }}">Register</a>
+                                <a class="button is-tertiary is-small"
+                                   href="{{ url_for('auth.register') }}">Register</a>
                             </li>
                         {% else %}
                             <li>
-                                <a href="{{ url_for('auth.login') }}">Account</a>
+                                {{ current_user.person.full_name }}
+                            </li>
+                            <li>
+                                <a class="is-color-black" href="{{ url_for('auth.logout') }}">Log out</a>
                             </li>
                         {% endif %}
                     </ul>
@@ -44,11 +57,13 @@
         {% if current_user.is_authenticated %}
             <div class="navbar is-navbar-container is-scrollable is-border-top is-border-bottom">
                 <div class="is-navbar">
-                    <nav class="is-centered">
+                    <nav>
                         <ul>
+                            <li><a class="button is-tertiary" href="#">News</a></li>
                             <li><a class="button is-tertiary" href="#">Events</a></li>
                             <li><a class="button is-tertiary" href="#">Teams</a></li>
-                            <li><a class="button is-tertiary" href="#">Manage</a></li>
+                            <li><a class="button is-tertiary" href="#">Organisation</a></li>
+                            <li><a class="button is-tertiary" href="#">Settings</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -120,5 +135,7 @@
 <script>
     $K.init();
 </script>
+{% block script %}
+{% endblock %}
 </body>
 </html>

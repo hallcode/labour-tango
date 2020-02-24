@@ -1,7 +1,16 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, BooleanField
+from wtforms import StringField, SubmitField, BooleanField, PasswordField
 
-from wtforms.validators import Email, DataRequired, Length
+from wtforms.validators import Email, DataRequired, Length, Regexp, ValidationError
+
+
+def must_match(other_field, message=None):
+
+    def _must_match(form, field):
+        if field.data != other_field.data:
+            raise ValidationError(message or 'This field must match %s.' % field)
+
+    return _must_match
 
 
 class StartForm(FlaskForm):
@@ -13,6 +22,29 @@ class StartForm(FlaskForm):
     submit = SubmitField('Next')
 
 
+class PreferencesForm(FlaskForm):
+    wants_account = BooleanField('Do you want to set up a user account?')
+    events = BooleanField('Event updates and information')
+    messages = BooleanField('Messages and important local information')
+    reminders = BooleanField('Reminders and prompts')
+    submit = SubmitField('Next')
+
+
+class AccountForm(FlaskForm):
+    wants_account = BooleanField('Do you want to set up a user account?')
+    password = PasswordField(
+        'Password',
+        validators=[Regexp(
+            regex=r"^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$",
+            message="Your password did not match the criteria, please make it more complex."
+        )]
+    )
+    password_check = PasswordField('Repeat password')
+    submit = SubmitField('Next')
+
+
 PAGES = {
-    'YourDetails': StartForm
+    'YourDetails': StartForm,
+    'Preferences': PreferencesForm,
+    'Account': AccountForm
 }

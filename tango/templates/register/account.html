@@ -1,0 +1,78 @@
+{% extends "layouts/main.html" %}
+{% import "macros/field.html" as field %}
+{% block title %}Volunteer | Account{% endblock %}
+
+
+{% block content %}
+    <h1>Account</h1>
+
+    <form action="" method="post" novalidate class="is-ruled">
+        {{ form.hidden_tag() }}
+
+        <section>
+            <p>Do you want to create a user account?</p>
+            <p>
+                This is optional, and either way we'll use the information you've provided already to include you in
+                whatever campaign activities are going on in your area.
+            </p>
+            <p>
+                If you do create an account though, you'll be able to log in and see what events are coming up and RSVP
+                to
+                let the organise know if you can make it.
+                You'll also be able to see key statistics for your area, and read (or write) updates from activists
+                about their campaigns.
+            </p>
+            <p class="is-box">
+                <label for="wants_account">
+                    <input id="wants_account"
+                           name="wants_account"
+                           v-model="show_password_fields"
+                           type="checkbox"
+                           class="is-checkbox">
+                    I'd like an account
+                </label>
+            </p>
+        </section>
+
+        <article v-if="show_password_fields">
+            <h2>Password</h2>
+            <p>
+                To create an account you just need to chose a strong password which meets the following
+                criteria:
+            </p>
+            <ul>
+                <li>
+                    <p>At least 8 characters</p>
+                </li>
+                <li>
+                    <p>Must contain upper and lowercase characters</p>
+                </li>
+                <li>
+                    <p>Must contain at least one special character</p>
+                </li>
+                <li>
+                    <p>Must contain at least one number</p>
+                </li>
+            </ul>
+            {{ field.hfield(form.password) }}
+            {{ field.hfield(form.password_check) }}
+        </article>
+
+        <section style="text-align: right">
+            {{ form.submit(class="button") }}
+        </section>
+
+
+    </form>
+{% endblock %}
+
+{% block script %}
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                show_password_fields: {{ 'true' if show_password else 'false' }}
+            }
+        })
+    </script>
+{% endblock %}

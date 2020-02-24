@@ -20,8 +20,15 @@ boundaries = db.Table(
 class Consent(db.Model):
     person_id = db.Column(db.Integer, db.ForeignKey("people.id"), primary_key=True)
     key = db.Column(db.String(10), primary_key=True)
+    origin = db.Column(db.String(10), nullable=False)
     obtained_at = db.Column(db.DateTime, nullable=True, server_default=func.now())
     consent_text = db.Column(db.Text, nullable=True)
+
+    def __init__(self, person_id, key, origin, text=None):
+        self.person_id = person_id
+        self.key = key
+        self.origin = origin
+        self.consent_text = text
 
 
 class Person(db.Model):

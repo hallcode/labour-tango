@@ -1,0 +1,71 @@
+{% extends "layouts/main.html" %}
+{% import "macros/field.html" as field %}
+{% block title %}Volunteer | Preferences{% endblock %}
+
+
+{% block content %}
+    <h1>Email Preferences</h1>
+    <form action="" method="post" novalidate class="is-ruled">
+        {{ form.hidden_tag() }}
+        <section class="is-small">
+            <p>
+                What kind of emails would you like to receive?
+            </p>
+            <p>
+                Please be aware that there are some kinds of emails you can't op-out of, like emails about your account
+                (verification or password reset emails for example). Please read our
+                <a href="{{ url_for('home.page', title="data") }}">Data Protection</a> policy for more detail.
+            </p>
+            <p>
+                We'll also provide your contact details to Labour members so they can get in touch with you personally,
+                and
+                they may not respect the choices you make here.
+            </p>
+        </section>
+
+        <table>
+            <caption>Tick the box for the emails you'd like to receive</caption>
+            <tbody>
+            <tr>
+                <td>{{ form.events }}</td>
+                <td>
+                    {{ form.events.label(class="is-big") }}
+                    <p class="is-muted">
+                        This option will include a weekly email detailing all the campaign events near you, as well as
+                        the occasional reminder of important events or information about events you've signed up to
+                        attend.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>{{ form.reminders }}</td>
+                <td>
+                    {{ form.reminders.label(class="is-big") }}
+                    <p class="is-muted">
+                        If you'd like, we can send you an email after any events you organise or attend to remind you
+                        to complete any required event return, or with a link to provide feedback about the event.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>{{ form.messages }}</td>
+                <td>
+                    {{ form.messages.label(class="is-big") }}
+                    <p class="is-muted">
+                        Pick to get an email whenever another member of the site sends you a message directly, or when
+                        an organiser sends out a notification to all members in your area.
+                    </p>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <section style="text-align: right">
+            {{ form.submit(class="button") }}
+        </section>
+
+
+    </form>
+
+
+{% endblock %}

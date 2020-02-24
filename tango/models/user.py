@@ -64,7 +64,7 @@ class User(db.Model):
 
     @property
     def is_active(self):
-        return self.is_verified and not self.is_blocked
+        return not self.is_blocked
 
 
     @property

@@ -47,7 +47,7 @@ class Event(db.Model):
     contacts_made = db.Column(db.Integer, nullable=True)
 
     attendees = db.relationship('Person', secondary=attendance, lazy='subquery',
-                                backref=db.backref('events_attended', lazy=True))
+                                backref=db.backref('events', lazy=True))
 
     roads = db.relationship('Road', secondary=roads, lazy=True,
                                 backref=db.backref('events', lazy=True))

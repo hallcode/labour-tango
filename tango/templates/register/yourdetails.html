@@ -1,10 +1,10 @@
 {% extends "layouts/main.html" %}
 {% import "macros/field.html" as field %}
-{% block title %}Volunteer{% endblock %}
+{% block title %}Volunteer | Your Details{% endblock %}
 
 
 {% block content %}
-    <h1>1. Your Details</h1>
+    <h1>Your Details</h1>
     <p>
     First, tell us who you are and how we can contact you.
     </p>
@@ -40,7 +40,7 @@
             <div class="is-col is-30">
                 {{ form.post_code.label }}
                 <p class="is-muted is-small">
-                    Enter your home post code.
+                    Enter your home post code so we can work out which constituency you vote in.
                 </p>
             </div>
             <div class="is-col is-70">
