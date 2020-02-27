@@ -19,6 +19,7 @@ docs/_build/
 __pycache__
 instance/*
 instance*
+migrations/*
 
 # Coverage reports
 htmlcov/
