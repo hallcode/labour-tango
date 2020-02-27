@@ -4,15 +4,17 @@
 
 
 {% block content %}
-    <h1>Email Preferences</h1>
+
+<article class="container-skinny">
+<h1>Email Preferences</h1>
     <form action="" method="post" novalidate class="is-ruled">
         {{ form.hidden_tag() }}
-        <section class="is-small">
-            <p>
+        <section class="panel p-4">
+            <h5 class="m-0">
                 What kind of emails would you like to receive?
-            </p>
+            </h5>
             <p>
-                Please be aware that there are some kinds of emails you can't op-out of, like emails about your account
+                Please be aware that there are some kinds of emails you can't op-out of like emails about your account
                 (verification or password reset emails for example). Please read our
                 <a href="{{ url_for('home.page', title="data") }}">Data Protection</a> policy for more detail.
             </p>
@@ -23,14 +25,13 @@
             </p>
         </section>
 
-        <table>
-            <caption>Tick the box for the emails you'd like to receive</caption>
+        <table class="table row-border">
             <tbody>
             <tr>
-                <td>{{ form.events }}</td>
+                <td>{{ form.events(data_role="switch") }}</td>
                 <td>
-                    {{ form.events.label(class="is-big") }}
-                    <p class="is-muted">
+                    {{ form.events.label(class="h6") }}
+                    <p>
                         This option will include a weekly email detailing all the campaign events near you, as well as
                         the occasional reminder of important events or information about events you've signed up to
                         attend.
@@ -38,20 +39,20 @@
                 </td>
             </tr>
             <tr>
-                <td>{{ form.reminders }}</td>
+                <td>{{ form.reminders(data_role="switch") }}</td>
                 <td>
-                    {{ form.reminders.label(class="is-big") }}
-                    <p class="is-muted">
+                    {{ form.reminders.label(class="h6") }}
+                    <p>
                         If you'd like, we can send you an email after any events you organise or attend to remind you
                         to complete any required event return, or with a link to provide feedback about the event.
                     </p>
                 </td>
             </tr>
             <tr>
-                <td>{{ form.messages }}</td>
+                <td>{{ form.messages(data_role="switch") }}</td>
                 <td>
-                    {{ form.messages.label(class="is-big") }}
-                    <p class="is-muted">
+                    {{ form.messages.label(class="h6") }}
+                    <p>
                         Pick to get an email whenever another member of the site sends you a message directly, or when
                         an organiser sends out a notification to all members in your area.
                     </p>
@@ -60,12 +61,11 @@
             </tbody>
         </table>
 
-        <section style="text-align: right">
-            {{ form.submit(class="button") }}
+        <section class="form-group">
+            {{ form.submit(class="button secondary") }}
         </section>
 
-
     </form>
-
+</article>
 
 {% endblock %}

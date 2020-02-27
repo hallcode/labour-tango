@@ -1,16 +1,12 @@
 {% macro hfield(field, description=None) -%}
-    <section class="is-row form-item">
-        <div class="is-col is-30">
-            {{ field.label }}
-            {% if description %}
-                <p class="is-muted is-small">{{ description }}</p>
-            {% endif %}
-        </div>
-        <div class="is-col is-70">
-            {{ field(class="is-error" if field.errors) }}
-            {% for error in field.errors %}
-                <div class="is-error">{{ error }}</div>
-            {% endfor %}
-        </div>
+    <section class="form-group border">
+        {{ field.label }}
+        {% if description %}
+            <p class="text-muted" style="font-size: small">{{ description }}</p>
+        {% endif %}
+        {{ field(class="error" if field.errors, data_role="input") }}
+        {% for error in field.errors %}
+            <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
     </section>
 {%- endmacro %}

@@ -4,63 +4,67 @@
 
 
 {% block content %}
-    <section>
-        <h1>Volunteer for the Labour Party</h1>
-        <p>
-            We're glad you're interested in getting involved with the Labour Party in your area.
-            Whether you're a member already or just interested in helping out, thank you.
-        </p>
-    </section>
 
-    <section class="is-box">
-    <p>
-        This can take up as much or as little time as you want. We normally deliver leaflets,
-        knock on doors, or talk to people at events like a street stall.
-    </p>
-    <p>
-        You should expect it to take up roughly 3 hours a fortnight.
-    </p>
-    </section>
+    <article class="container-skinny">
+        <section>
+            <h1>Volunteer for the Labour Party</h1>
+            <p>
+                We're glad you're interested in getting involved with the Labour Party in your area.
+                Whether you're a member already or just interested in helping out, thank you.
+            </p>
+        </section>
 
-    <section>
-        <p>
-            Click <strong>Start</strong> to sign up to volunteer. You'll get the option of creating account or not, later
-            in the process.
-        </p>
-        <ul>
-            <li>
-                <p>
+        <section class="remark">
+            <p>
+                This can take up as much or as little time as you want. We normally deliver leaflets,
+                knock on doors, or talk to people at events like a street stall.
+            </p>
+            <p>
+                You should expect it to take up roughly <strong>3 hours a fortnight</strong>.
+            </p>
+        </section>
+
+        <section>
+            <p>
+                Click <strong>Start</strong> to sign up to volunteer. You'll get the option of creating account or not,
+                later
+                in the process.
+            </p>
+            <ul>
+                <li class="m-1">
                     This website is independent from the Labour Party, but it's run by committed and experienced Labour
                     Party members.
-                </p>
-            </li>
-            <li>
-                <p>
+                </li>
+                <li class="m-1">
                     We'll store your information and we'll pass it on to members of the Labour Party who'll use it
                     to let you know about events and campaigns.
-                </p>
-            </li>
-            <li>
-                <p>
+                </li>
+                <li class="m-1">
                     We may also pass on the information you provide to the Labour party to help with their candidate
                     selections and to help find supporters to sign candidates' nomination forms.
-                </p>
-            </li>
-        </ul>
-        <p>
-            The main purpose of this website is to track attendance at events, let people know what events are
-            happening, and monitor how much campaigning is being done.
-        </p>
-    </section>
+                </li>
+            </ul>
+            <p>
+                The main purpose of this website is to track attendance at events, let people know what events are
+                happening, and monitor how much campaigning is being done.
+            </p>
+        </section>
 
-    <section style="text-align: right">
-        <div class="alert is-focus" style="text-align: left">
+        <div class="remark info">
             For more information on how we'll use your data, have a look at our
             <a href="{{ url_for('home.page', title="data") }}">
                 Data protection statement</a>.
         </div>
-        <a class="button" href="{{ url_for('auth.register', page="YourDetails") }}">Start</a>
-    </section>
 
+        <section class="form-group">
+            <a class="command-button icon-right secondary" href="{{ url_for('auth.register', page="YourDetails") }}">
+            <span class="caption">
+                Start now
+                <small>Begin volunteer registration</small>
+            </span>
+                <span class="mif-arrow-right icon"></span>
+            </a>
+        </section>
+    </article>
 
 {% endblock %}

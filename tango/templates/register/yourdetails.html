@@ -4,59 +4,55 @@
 
 
 {% block content %}
-    <h1>Your Details</h1>
-    <p>
-    First, tell us who you are and how we can contact you.
-    </p>
-    <form action="" method="post" novalidate class="is-ruled">
-        {{ form.hidden_tag() }}
-        <section class="is-row form-item">
-            <div class="is-col is-30">
+
+    <article class="container-skinny">
+        <header style="margin-bottom: 1.5rem">
+            <h1>Your details</h1>
+            <p>
+                First, tell us who you are and how we can contact you.
+            </p>
+        </header>
+        <form action="" method="post" novalidate class="is-ruled">
+            {{ form.hidden_tag() }}
+            <section class="form-group border">
                 <label for="first_name">
                     Name
                 </label>
-            </div>
-            <div class="is-col is-70">
-                <div class="form-item">
-                    {{ form.first_name(class="is-error" if form.first_name.errors, placeholder="First name") }}
+                <div class="form-group">
+                    {{ form.first_name(class="error" if form.first_name.errors, data_role="input", data_prepend="First name") }}
                     {% for error in form.first_name.errors %}
-                        <div class="is-error">{{ error }}</div>
+                        <div class="invalid-feedback">{{ error }}</div>
                     {% endfor %}
                 </div>
-                <div>
-                    {{ form.last_name(class="is-error" if form.last_name.errors, placeholder="Last name") }}
+                <div class="form-group">
+                    {{ form.last_name(class="error" if form.last_name.errors, data_role="input", data_prepend="Last name") }}
                     {% for error in form.last_name.errors %}
-                        <div class="is-error">{{ error }}</div>
+                        <div class="invalid-feedback">{{ error }}</div>
                     {% endfor %}
                 </div>
-            </div>
-        </section>
+            </section>
 
-        {{ field.hfield(form.email) }}
+            {{ field.hfield(form.email) }}
 
-        {{ field.hfield(form.tel_no, "Enter your mobile phone number") }}
+            {{ field.hfield(form.tel_no, "Enter your mobile phone number") }}
 
-        <section class="is-row form-item">
-            <div class="is-col is-30">
+            <section class="form-group border">
                 {{ form.post_code.label }}
-                <p class="is-muted is-small">
+                <p class="text-muted" style="font-size: small">
                     Enter your home post code so we can work out which constituency you vote in.
                 </p>
-            </div>
-            <div class="is-col is-70">
-                {{ form.post_code(class="is-error is-30" if form.post_code.errors else "is-30") }}
+                {{ form.post_code(class="error" if form.post_code.errors, style="max-width: 12em") }}
                 {% for error in form.post_code.errors %}
-                    <div class="is-error">{{ error }}</div>
+                    <div class="invalid-feedback">{{ error }}</div>
                 {% endfor %}
-            </div>
-        </section>
+            </section>
 
-        <section style="text-align: right">
-            {{ form.submit(class="button") }}
-        </section>
+            <section class="form-group">
+                {{ form.submit(class="button secondary") }}
+            </section>
 
 
-    </form>
-
+        </form>
+    </article>
 
 {% endblock %}

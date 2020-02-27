@@ -4,137 +4,130 @@
     <title>{% block title %}{% endblock %} - Committee Room</title>
 
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <!-- Kube CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='kube/themes/labour.theme.css') }}">
+    <!-- Metro 4 -->
+    <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4.3.2/css/metro-all.min.css">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
+    <link rel="sortcut icon" href="{{ url_for('static', filename='img/cr_icon.svg') }}">
 
-    {% if config['DEBUG'] == True %}
-        <script src="https://vuejs.org/js/vue.js"></script>
-    {% else %}
-        <script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"></script>
-    {% endif %}
+    <style>
+        .app-bar-menu li {
+            list-style: none !important;
+        }
+    </style>
 
 </head>
 <body>
-<div id="app" class="page is-container-column">
-    <header class="header">
-
-        <div class="navbar is-navbar-container is-scrollable">
-            <a href="/" class="is-brand is-big">
+<div id="app">
+    <header class="site-header clear-pseudo-elms">
+        <nav class="container clear-pseudo-elms">
+            <a class="logo fg-red" href="/">
+                <img src="{{ url_for('static', filename="img/cr_icon.svg") }}">
                 Committee<b>Room</b>
             </a>
-            {% if config['DEBUG'] == True %}
-                <span style="margin: 0 .33em" class="is-muted">DEV</span>
-            {% endif %}
-            <div class="is-navbar">
-                <nav class="is-push-right">
-                    <ul>
-                        {% if not current_user.is_authenticated %}
-                            <li>
-                                <a class="button is-secondary is-small" href="{{ url_for('auth.login') }}">Sign in</a>
-                            </li>
-                            <li>
-                                <a class="button is-tertiary is-small"
-                                   href="{{ url_for('auth.register') }}">Register</a>
-                            </li>
-                        {% else %}
-                            <li>
-                                {{ current_user.person.full_name }}
-                            </li>
-                            <li>
-                                <a class="is-color-black" href="{{ url_for('auth.logout') }}">Log out</a>
-                            </li>
-                        {% endif %}
-                    </ul>
-                </nav>
-            </div>
-        </div>
+            <ul class="menu">
+                {% if not current_user.is_authenticated %}
 
-        {% if current_user.is_authenticated %}
-            <div class="navbar is-navbar-container is-scrollable is-border-top is-border-bottom">
-                <div class="is-navbar">
-                    <nav>
-                        <ul>
-                            <li><a class="button is-tertiary" href="#">News</a></li>
-                            <li><a class="button is-tertiary" href="#">Events</a></li>
-                            <li><a class="button is-tertiary" href="#">Teams</a></li>
-                            <li><a class="button is-tertiary" href="#">Organisation</a></li>
-                            <li><a class="button is-tertiary" href="#">Settings</a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        {% endif %}
+                    <li>
+                        <a class="button dark outline" href="{{ url_for('auth.register') }}">
+                            Register
+                        </a>
+                    </li>
 
+                    <li><a class="button link fg-dark" href="{{ url_for('auth.login') }}">Sign in</a></li>
+
+                {% else %}
+                    <li>
+                   <span class="fg-dark">
+                       {{ current_user.person.full_name }}
+                   </span>
+                    </li>
+                    <li>
+                        <a class="button outline dark small" href="{{ url_for('auth.logout') }}">Log out</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
     </header>
-    <main class="main is-container">
-        {% if self.sidebar() %}
-            <aside class="main-sidebar is-hidden-mobile is-hidden-print">
-                {% block sidebar %}{% endblock %}
-            </aside>
-        {% endif %}
-        <article class="main-content">
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    <section>
+    <div class="red-bar container"></div>
+
+    {% if current_user.is_authenticated %}
+        <section class="container">
+            <nav class="main-menu">
+                <ul class="h-menu no-hover">
+                    <li><a href="#">News</a></li>
+                    <li><a href="#">Events</a></li>
+                    <li><a href="#">Teams</a></li>
+                    <li><a href="#">Organisation</a></li>
+                    <li><a href="#">Settings</a></li>
+                </ul>
+            </nav>
+        </section>
+    {% endif %}
+
+    <main class="main container">
+        <div class="row">
+            {% if self.sidebar() %}
+                <aside class="min-lg cell-lg-3 v-space">
+                    {% block sidebar %}{% endblock %}
+                </aside>
+            {% endif %}
+
+            <section class="main-content cell">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
                         {% for category, message in messages %}
-                            <div class="alert is-{{ category }}">
-                                <p>{{ message|safe }}</p>
+                            <div class="remark {{ category }}">
+                                {{ message|safe }}
                             </div>
                         {% endfor %}
-                    </section>
-                {% endif %}
-            {% endwith %}
+                    {% endif %}
+                {% endwith %}
 
-            {% block content %}{% endblock %}
+                {% block content %}{% endblock %}
 
+            </section>
+        </div>
 
-        </article>
     </main>
 
 
-    <footer class="footer is-border-top">
-        <section class="navbar is-navbar-container">
-            <div class="is-brand">
-                Committee<b class="is-logo">Room</b>
-            </div>
-            <div class="is-navbar">
-                <nav class="is-push-right">
-                    <ul>
+    <footer class="footer bg-grey clear-pseudo-elms">
+        <div class="container clear-pseudo-elms">
+            <section class="row footer-header clear-pseudo-elms">
+                <h5 class="fg-lightRed m-0">
+                    Committee<b class="is-logo">Room</b>
+                </h5>
+                <nav>
+                    <ul class="footer-menu">
                         <li>
-                            <a href="#" class="is-muted">About</a>
+                            <a href="#" class="fg-steel">About</a>
                         </li>
                         <li>
-                            <a href="{{ url_for('home.page', title="data") }}" class="is-muted">Data Protection</a>
+                            <a class="fg-steel" href="{{ url_for('home.page', title="data") }}">Data Protection</a>
                         </li>
                         <li>
-                            <a href="#" class="is-muted">Contact</a>
+                            <a class="fg-steel" href="#">Contact</a>
                         </li>
                     </ul>
                 </nav>
-            </div>
-        </section>
-        <section class="is-row">
-            <div class="is-col is-60 is-muted is-small">
-                A home for activists.
-            </div>
-            <p class="is-col is-40 is-muted is-smaller">
-                Promoted by A W Hall on behalf of North West Cambridgeshire Constituency Labour Party,
-                both at 11 Kennedy Street, Hampton Vale, Peterborough, PE7 8JY.
-            </p>
-        </section>
+            </section>
+            <section class="row">
+                <p class="legal">
+                    Promoted by A W Hall on behalf of North West Cambridgeshire Constituency Labour Party,
+                    both at 11 Kennedy Street, Hampton Vale, Peterborough, PE7 8JY.
+                </p>
+            </section>
+        </div>
+
+
     </footer>
 </div>
-
-<!-- Kube JS (optional if you are using Kube CSS only) -->
-<script src="{{ url_for('static', filename='kube/js/kube.min.js') }}"></script>
-<script>
-    $K.init();
-</script>
+<!-- Metro 4 -->
+<script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
 {% block script %}
 {% endblock %}
 </body>

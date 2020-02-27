@@ -1,108 +1,165 @@
-
-.page {
-    display: grid;
-    grid-template-columns: auto 1024px auto;
-    grid-template-rows: min-content auto min-content;
-    padding: 0 1rem;
+#app {
+    position: relative;
+    display: flex;
+    flex-direction: column;
     min-height: 100vh;
 }
 
-.page > * {
-    max-width: calc(100vw - 2rem);
-    grid-column: 2 / 3;
+#app > * {
+    flex: 0 0 auto;
 }
 
-.is-brand {
-    color: #e4003b;
+#app > .main {
+    flex: 1 1 auto;
+}
+
+.logo {
+    font-size: larger;
+    text-decoration: none;
+    margin: .33rem 0;
+    display: block;
+    flex: 1 0 auto;
+}
+
+.site-header {
+    background-color: rgba(0, 5, 8, 0.02);
+    width: 100%;
+    padding: .33rem;
+    border-bottom: 1px solid rgba(0, 5, 8, 0.16);
+}
+
+.site-header > nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.site-header > nav > .menu {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.site-header > nav > .menu > li {
+    margin: 0 .33rem;
+}
+
+.red-bar {
+    border-bottom: 10px solid rgba(192, 0, 13, 0.85);
+    border-top: 1px solid rgba(172, 0, 13, 0.9);
+    z-index: 10;
+    transform: translateY(-1px);
+}
+
+.clear-pseudo-elms::before, .clear-pseudo-elms::after {
+    content: unset !important;
+    display: unset !important;
+    clear: unset !important;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    flex: 0 1 auto;
+}
+
+.logo:hover {
     text-decoration: none;
 }
 
-.navbar {
-    padding: 8px 0;
-    min-height: 56px;
+.logo > img {
+    height: 2em;
+    margin: .12em
 }
 
-.is-navbar.is-border-bottom {
-    margin-bottom: 1.33rem;
+
+.main-menu {
+    margin: .66rem 0;
+    padding-bottom: .66rem;
+    border-bottom: 1px solid rgba(0, 0, 0, .12);
 }
 
-.main {
-    padding: 8px 0;
-}
-
-.main-sidebar {
-    flex: 0 0 235px;
+.menu-padding {
     margin-right: 1rem;
 }
 
-.main-content {
-    flex: 1 1 auto;
-    margin: 0 auto;
-    max-width: 785px;
+.menu-padding li > a {
+    padding: 0 1rem;
 }
 
-.main-sidebar > nav {
-    margin-bottom: 1.23rem;
+.error {
+    border-color: #CE352C !important;
 }
 
-.footer {
+.invalid-feedback {
+    color: #CE352C;
+}
+
+.min-lg {
+    display: none;
+}
+
+@media screen and (min-width: 992px) {
+    .min-lg {
+        display: initial;
+    }
+}
+
+.v-space {
+    margin: 2rem 0;
+}
+
+footer {
+    margin: 0;
     margin-top: 3rem;
-    padding: 1rem 0 3rem 0;
+    background-color: rgba(0, 0, 0, .03);
+    padding: 2rem 0 4rem 0;
+    border-top: 1px solid rgba(0, 5, 8, 0.08);
 }
 
-main section {
-    margin: 16px 0;
+footer .footer-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3.45rem;
 }
 
-.is-ruled .is-row.form-item:not(:first-child) {
-    margin: 16px 0;
-    padding: 16px 0;
-    border-top: 1px solid rgba(17,17,19,.07);
+.footer-header nav li {
+    display: inline-block;
+    margin: 0 .43em;
 }
 
-.is-ruled .is-row.form-item > .is-col {
-    margin-left: 0;
+.container-skinny {
+    display: block;
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+    padding-right: 12px;
+    padding-left: 12px;
+    max-width: 744px;
 }
 
-input.button {
-    box-sizing: border-box;
-    width: min-content;
+.legal {
+    font-size: smaller;
+    color: rgba(0,0,0,.45);
+    font-weight: 200;
 }
 
-h1, h2 {
-    margin-bottom: .33em;
-    padding-bottom: .33em;
-    border-bottom: 1px solid rgba(23, 29, 33, 0.07);
+form > .form-group.border {
+    border-left: 4px solid rgba(0,0,0,.08);
+    padding: .22rem 0 .66rem .77rem;
 }
 
-.button:not(.is-secondary):hover {
-    border: none;
+form > .form-group.border:focus-within {
+    border-left: 4px solid rgba(0,0,0,.12);
 }
 
-.is-box {
-    border-radius: 2px;
-    border: 1px solid rgba(23, 29, 33, 0.05);
-    background-color: rgba(23, 29, 33, 0.025);
-    padding: 1rem;
-    color: rgba(23, 29, 33, 0.97);
+.form-group label:not(.checkbox):not(.radio) {
+    display: block;
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 1em;
 }
 
-.is-box > :first-child {
-    margin-top: 0;
-}
-
-.is-box > :last-child {
-    margin-bottom: 0;
-}
-
-main article ul, main article ol {
-    margin-left: 3rem;
-}
-
-.button:focus {
-    box-shadow: 0 0 0 3px rgba(21, 141, 247, .23) !important;
-}
-
-.navbar.is-scrollable li:first-child {
-    margin-left: 2px;
+label:not(.checkbox):not(.radio):not(.h6) + p {
+    margin-top: -.36em;
 }

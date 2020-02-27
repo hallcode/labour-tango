@@ -38,7 +38,7 @@ class Person(db.Model):
     first_name = db.Column(db.String(50), unique=False, nullable=True)
     last_name = db.Column(db.String(50), unique=False, nullable=True)
     email = db.Column(db.String(1024), unique=True, nullable=False)
-    mobile_tel = db.Column(db.String(13), unique=True, nullable=True)
+    mobile_tel = db.Column(db.String(13), unique=False, nullable=True)
     post_code = db.Column(db.String(8), unique=False, nullable=True)
     is_member = db.Column(db.Boolean, default=False)
 

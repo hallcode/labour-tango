@@ -23,7 +23,6 @@ class StartForm(FlaskForm):
 
 
 class PreferencesForm(FlaskForm):
-    wants_account = BooleanField('Do you want to set up a user account?')
     events = BooleanField('Event updates and information')
     messages = BooleanField('Messages and important local information')
     reminders = BooleanField('Reminders and prompts')

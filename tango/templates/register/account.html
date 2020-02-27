@@ -4,75 +4,85 @@
 
 
 {% block content %}
-    <h1>Account</h1>
+    <article class="container-skinny">
+        <h1>Account</h1>
 
-    <form action="" method="post" novalidate class="is-ruled">
-        {{ form.hidden_tag() }}
+        <form action="" method="post" novalidate class="is-ruled">
+            {{ form.hidden_tag() }}
 
-        <section>
-            <p>Do you want to create a user account?</p>
-            <p>
-                This is optional, and either way we'll use the information you've provided already to include you in
-                whatever campaign activities are going on in your area.
-            </p>
-            <p>
-                If you do create an account though, you'll be able to log in and see what events are coming up and RSVP
-                to
-                let the organise know if you can make it.
-                You'll also be able to see key statistics for your area, and read (or write) updates from activists
-                about their campaigns.
-            </p>
-            <p class="is-box">
-                <label for="wants_account">
-                    <input id="wants_account"
+            <section class="panel p-4">
+                <h6 class="m-0">Do you want to create a user account?</h6>
+                <p>
+                    This is optional, and either way we'll use the information you've provided already to include you in
+                    whatever campaign activities are going on in your area.
+                </p>
+                <p>
+                    If you do create an account though, you'll be able to log in and see what events are coming up and
+                    RSVP
+                    to
+                    let the organise know if you can make it.
+                    You'll also be able to see key statistics for your area, and read (or write) updates from activists
+                    about their campaigns.
+                </p>
+                <p>
+                    <input type="checkbox"
                            name="wants_account"
-                           v-model="show_password_fields"
-                           type="checkbox"
-                           class="is-checkbox">
-                    I'd like an account
-                </label>
-            </p>
-        </section>
+                           id="wants_account"
+                           data-role="checkbox"
+                           data-caption="I'd like to set up an account"
+                           onchange="togglePasswordBox()"
+                    >
+                </p>
+            </section>
 
-        <article v-if="show_password_fields">
-            <h2>Password</h2>
-            <p>
-                To create an account you just need to chose a strong password which meets the following
-                criteria:
-            </p>
-            <ul>
-                <li>
-                    <p>At least 8 characters</p>
-                </li>
-                <li>
-                    <p>Must contain upper and lowercase characters</p>
-                </li>
-                <li>
-                    <p>Must contain at least one special character</p>
-                </li>
-                <li>
-                    <p>Must contain at least one number</p>
-                </li>
-            </ul>
-            {{ field.hfield(form.password) }}
-            {{ field.hfield(form.password_check) }}
-        </article>
+            <section id="password_section" class="form-group p-4" style="display: none">
+                <h5>Chose your password</h5>
+                <p>
+                    To create an account you just need to chose a strong password which meets the following
+                    criteria:
+                </p>
+                <ul style="list-style-position: outside; margin-left: 2rem;">
+                    <li>
+                        <p>At least 8 characters</p>
+                    </li>
+                    <li>
+                        <p>Must contain upper and lowercase characters</p>
+                    </li>
+                    <li>
+                        <p>Must contain at least one special character</p>
+                    </li>
+                    <li>
+                        <p>Must contain at least one number</p>
+                    </li>
+                </ul>
+                {{ field.hfield(form.password) }}
+                {{ field.hfield(form.password_check) }}
+            </section>
 
-        <section style="text-align: right">
-            {{ form.submit(class="button") }}
-        </section>
+            <section class="form-group">
+                {{ form.submit(class="button secondary") }}
+            </section>
 
-
-    </form>
+        </form>
+    </article>
 {% endblock %}
 
 {% block script %}
     <script>
-        var app = new Vue({
-            el: '#app',
-            data: {
-                show_password_fields: {{ 'true' if show_password else 'false' }}
+        window.onload = function () {
+            togglePasswordBox({{ 'true' if show_password else 'false' }})
+        }
+
+        function togglePasswordBox(initial = false) {
+            var checkbox = document.getElementById("wants_account");
+            var section = document.getElementById('password_section');
+
+            if (checkbox.checked || initial) {
+                section.style.display = 'block';
             }
-        })
+            else {
+                section.style.display = 'none';
+            }
+        }
     </script>
 {% endblock %}

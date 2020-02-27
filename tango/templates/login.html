@@ -3,50 +3,43 @@
 
 {% block content %}
 
-            <h1>Login</h1>
+    <article class="container-skinny">
+        <h1>Login</h1>
 
-            <form action="" method="post" novalidate>
-                {{ form.hidden_tag() }}
-                <section class="is-row form-item">
-                    <div class="is-col is-30">
-                        {{ form.email.label(class="is-big") }}
-                    </div>
-                    <div class="is-col is-70">
-                        {{ form.email(class="is-error" if form.email.errors) }}
-                        {% for error in form.email.errors %}
-                            <div class="is-error">{{ error }}</div>
-                        {% endfor %}
-                    </div>
-                </section>
+        <form action="" method="post" novalidate autocomplete="off">
+            {{ form.hidden_tag() }}
 
-                <section class="is-row form-item">
-                    <div class="is-col is-30">
-                        {{ form.password.label(class="is-big") }}
-                    </div>
-                    <div class="is-col is-70">
-                        {{ form.password(class="is-error" if form.password.errors) }}
-                        {% for error in form.password.errors %}
-                            <div class="is-error">{{ error }}</div>
-                        {% endfor %}
-                    </div>
-                </section>
+            <section class="form-group">
+                {{ form.email.label }}
+                {{ form.email(class="error" if form.email.errors, data_role="input") }}
+                {% for error in form.email.errors %}
+                    <small class="invalid-feedback">{{ error }}</small>
+                {% endfor %}
+            </section>
 
-                <section class="is-row form-item">
-                    <div class="is-col is-30">
-                    </div>
-                    <div class="is-col is-70">
-                        <label class="is-checkbox">
-                            {{ form.remember_me }}
-                            Remember me
-                        </label>
-                    </div>
-                </section>
+            <section class="form-group">
+                {{ form.password.label }}
+                {{ form.password(class="alert" if form.password.errors, data_role="input") }}
+                {% for error in form.password.errors %}
+                    <small class="invalid-feedback">{{ error }}</small>
+                {% endfor %}
+            </section>
 
-                <section class="form-item">
-                    {{ form.submit(class="button is-secondary") }}
-                    <a href="#" class="button is-tertiary">I've forgotten my password</a>
-                </section>
+            <section class="form-group">
+                <input type="checkbox"
+                       name="remember_me"
+                       data-role="checkbox"
+                       data-style="2"
+                       data-caption="Remember me"
+                >
+            </section>
 
-            </form>
+            <section class="form-group">
+                {{ form.submit(class="button secondary") }}
+                <a class="button link" href="#">I've forgotten my password</a>
+            </section>
+
+        </form>
+    </article>
 
 {% endblock %}
