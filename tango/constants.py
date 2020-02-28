@@ -9,3 +9,6 @@ EMAIL_CONSENT_KEYS = {
     "email_reminders": "e:rem",
     "email_messages": "e:msg"
 }
+
+EMAIL_SENDER = '"Committee Room" <auto@email.committeeroom.co.uk>'
+EMAIL_CHARSET = "UTF-8"

@@ -1,0 +1,9 @@
+VERIFICATION CODE
+
+    {{ code }}
+
+---
+You are receiving this message so that www.committeeroom.co.uk is trying
+to verify the ownership of this email address.
+
+If you haven't visited that website, please ignore this message.

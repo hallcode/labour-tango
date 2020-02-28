@@ -1,0 +1,12 @@
+{% extends 'layouts/email.html' %}
+{% block content %}
+    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
+        Hi {{ name or 'there' }},
+    </p>
+    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
+        Here is your one-time verification code:
+    </p>
+    <p style="font-family: sans-serif; font-size: 32px; font-weight: bold; margin: 0; Margin-bottom: 15px;">
+        {{ code }}
+    </p>
+{% endblock %}

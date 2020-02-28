@@ -4,9 +4,11 @@ Person Model
 Defines a model for volunteers and contacts. These will be linked to any matching
 user accounts, but a user account is not required.
 """
-import datetime
+import datetime, random, hashlib
 
+from flask import render_template
 from tango import db
+from tango.services.email import send_email
 from sqlalchemy.sql import func
 
 
@@ -15,6 +17,17 @@ boundaries = db.Table(
     db.Column('person_id', db.Integer, db.ForeignKey('people.id'), primary_key=True),
     db.Column('boundary_id', db.String(9), db.ForeignKey('boundaries.gss_code'), primary_key=True)
 )
+
+
+class VerificationCode(db.Model):
+    __tablename__ = 'verification_codes'
+    hash = db.Column(db.String(150), primary_key=True)
+    expires = db.Column(db.DateTime, nullable=False)
+
+    def __init__(self, hash):
+        self.hash = hash
+        self.expires = datetime.datetime.now() + datetime.timedelta(minutes=4)
+
 
 
 class Consent(db.Model):
@@ -41,6 +54,7 @@ class Person(db.Model):
     mobile_tel = db.Column(db.String(13), unique=False, nullable=True)
     post_code = db.Column(db.String(8), unique=False, nullable=True)
     is_member = db.Column(db.Boolean, default=False)
+    is_email_verified = db.Column(db.Boolean, default=False)
 
     user = db.relationship("User", backref="person", uselist=False)
 
@@ -70,7 +84,65 @@ class Person(db.Model):
     def legal_name(self):
         return "%s, %s" % (self.last_name.capitalize(), self.first_name)
 
-    def check_consent(self, consent_key):
-        consent = Consent.query.with_parent(self).filter_by(key=consent_key).first()
+    @property
+    def email_recipient(self):
+        if self.full_name == '':
+            return self.email
 
+        return "\"%s\", <%s>" % (self.full_name, self.email)
+
+    def check_consent(self, consent_key):
+        consent = Consent.query.with_parent(self).filter_by(key=consent_key).one()
         return False if consent is None else True
+
+    def verify(self, code=None):
+        old_codes = VerificationCode.query.filter(
+            VerificationCode.expires < datetime.datetime.now()
+        )
+
+        old_codes.delete(synchronize_session=False)
+        db.session.commit()
+
+        code_hash = hashlib.blake2b()
+        code_hash.update(bytes(self.email, encoding='utf-8'))
+
+        if code is not None:
+            code_hash.update(bytes(code))
+
+            vcode = VerificationCode.query.get(code_hash.hexdigest())
+
+            if vcode is not None:
+                db.session.delete(vcode)
+                db.session.commit()
+                return True
+            else:
+                return False
+
+        new_code = random.randint(10000,99999)
+        code_hash.update(bytes(new_code))
+        vcode = VerificationCode(hash=code_hash.hexdigest())
+
+        db.session.add(vcode)
+        db.session.commit()
+
+        email_text = render_template(
+            'emails/verify_code.txt',
+            code = new_code
+        )
+
+        email_html = render_template(
+            'emails/verify_code.html',
+            name = self.first_name,
+            code = new_code,
+            email = self.email
+        )
+
+        send_email(
+            to = self.email,
+            subject = 'Your verification code',
+            type = 'T',
+            body_text = email_text,
+            body_html = email_html
+        )
+
+        return None

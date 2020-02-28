@@ -10,7 +10,8 @@ STATUS = {
     " ": "pending",
     "D": "delivered",
     "E": "error",
-    "R": "awaiting retry"
+    "R": "awaiting retry",
+    'X': "rejected"
 }
 
 
@@ -26,7 +27,8 @@ message_queue = db.Table(
     db.Column('body_text', db.Text, nullable=False),
     db.Column('body_html', db.Text, nullable=True),
     db.Column('hold_until', db.DateTime, nullable=True),
-    db.Column('expires_on', db.DateTime, nullable=True)
+    db.Column('expires_on', db.DateTime, nullable=True),
+    db.Column('ses_msg_id', db.String(100), nullable=True, default='')
 )
 
 
