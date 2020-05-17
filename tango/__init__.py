@@ -12,10 +12,10 @@ from .models import import_all_models
 
 
 # Global Libraries
-db = SQLAlchemy();
-migrate = Migrate();
-csrf = CSRFProtect();
-login_manager = LoginManager();
+db = SQLAlchemy()
+migrate = Migrate()
+csrf = CSRFProtect()
+login_manager = LoginManager()
 
 
 def create_app():
