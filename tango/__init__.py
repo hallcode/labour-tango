@@ -67,4 +67,7 @@ def _register_views(app):
 
     app.register_blueprint(home_bp)
     app.register_blueprint(auth_bp)
+<<<<<<< HEAD
     app.register_blueprint(email_bp)
+=======
+>>>>>>> a522b297c091ea11a0d438d2b4556d3ba6dbf491
