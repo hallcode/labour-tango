@@ -12,3 +12,6 @@ EMAIL_CONSENT_KEYS = {
 
 EMAIL_SENDER = '"Committee Room" <auto@email.committeeroom.co.uk>'
 EMAIL_CHARSET = "UTF-8"
+
+VERIFY_EMAIL = 'V'
+TRANSACTIONAL_EMAIL = 'T'
