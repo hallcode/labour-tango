@@ -1,8 +1,10 @@
-import boto3
+import boto3, hashlib, datetime
 from botocore.exceptions import ClientError
+from flask import current_app
 
+from tango import db
 from tango.models.messages import exclusion_list, message_queue
-from tango.constants import EMAIL_SENDER, EMAIL_CHARSET
+from tango.constants import EMAIL_SENDER, EMAIL_CHARSET, VERIFY_EMAIL
 import tango.models.person
 
 
@@ -21,13 +23,32 @@ def send_email(to, subject, type, body_text, body_html=None):
     if recipient is None:
         return 'E'
 
-    if type is not None and type != 'T':
+    email_hash = hashlib.blake2b()
+    email_hash.update(bytes(to, encoding='utf-8'))
+
+    eq = db.select([exclusion_list]).where(db.and_(
+        exclusion_list.c.hash == email_hash.hexdigest(),
+        exclusion_list.c.until > datetime.datetime.now()
+    ))
+    exclusions = db.session.execute(eq)
+    exclusions = exclusions.fetchall()
+
+    if len(exclusions) > 0 and type != VERIFY_EMAIL:
+        return 'X'
+
+    if not recipient.is_email_verified and type != VERIFY_EMAIL:
+        return 'X'
+
+    if type is not None and type.len() > 1:
         consent = recipient.check_consent(type)
         if consent is None:
             return 'X'
 
-    if not recipient.is_email_verified and type != 'T':
-        return 'X'
+    # Make sure that if we're in development, we send all emails to the developer
+    if current_app.config['FLASK_ENV'] == 'development':
+        dev_email = current_app.config['DEV_EMAIL']
+    else:
+        dev_email = None
 
     try:
         body = {
@@ -46,7 +67,7 @@ def send_email(to, subject, type, body_text, body_html=None):
         response = client.send_email(
             Destination={
                 'ToAddresses': [
-                    recipient.email
+                    dev_email or recipient.email
                 ]
             },
             Message={
@@ -60,7 +81,7 @@ def send_email(to, subject, type, body_text, body_html=None):
         )
 
     except ClientError as e:
-        return 'E', e.response["Error"]["Message"]
+        return 'E'
     else:
         return response['MessageId']
 

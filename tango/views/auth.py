@@ -65,18 +65,20 @@ def register(page):
 
     if request.method == "GET":
         form=None
-        if page != "Start" and page != 'Done':
-            if "registration_started" not in session.keys():
-                return redirect(url_for('auth.register', page='Start'))
-
-            if page != 'YourDetails' and "person_id" not in session.keys():
-                return redirect(url_for('auth.register', page='YourDetails'))
-
-            form_page = PAGES[page]
-            form = form_page()
-
         if page == "Start":
             session["registration_started"] = True
+
+        if "registration_started" not in session.keys():
+            return redirect(url_for('auth.register', page='Start'))
+
+        if page != 'YourDetails' and "person_id" not in session.keys():
+            return redirect(url_for('auth.register', page='YourDetails'))
+
+        try:
+            form_page = PAGES[page]
+            form = form_page()
+        except KeyError as e:
+            return render_template('register/%s.html' % page.lower())
 
         return render_template('register/%s.html' % page.lower(), form=form)
 

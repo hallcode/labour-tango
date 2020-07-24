@@ -12,10 +12,10 @@ from .models import import_all_models
 
 
 # Global Libraries
-db = SQLAlchemy();
-migrate = Migrate();
-csrf = CSRFProtect();
-login_manager = LoginManager();
+db = SQLAlchemy()
+migrate = Migrate()
+csrf = CSRFProtect()
+login_manager = LoginManager()
 
 
 def create_app():
@@ -25,7 +25,7 @@ def create_app():
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(default_config)
 
-    config_path = os.path.join(app.instance_path, 'config.py');
+    config_path = os.path.join(app.instance_path, 'config.py')
     app.config.from_pyfile(config_path, silent=True)
 
     # Static files
@@ -63,7 +63,8 @@ def _register_services(app):
 
 
 def _register_views(app):
-    from .views import home_bp, auth_bp
+    from .views import home_bp, auth_bp, email_bp
 
     app.register_blueprint(home_bp)
     app.register_blueprint(auth_bp)
+    app.register_blueprint(email_bp)
